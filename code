@@ -1,0 +1,54 @@
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+
+int main() {
+    int N,M;
+    cin>>N>>M;
+    int V[N][M];
+    vector<int > h;
+    int count =0;
+    string str;
+    for(int ii=0;ii<N;ii++){
+        cin>>str;
+        for(int jj=0;jj<M;jj++){
+            V[ii][jj] = 2000;
+            if(str[jj]=='H'){
+                count++;
+                h.push_back(ii);
+                h.push_back(jj);
+                V[ii][jj]=0;
+            }
+        }
+    }
+    int d1,d2;
+    int d;
+    for(int ii=0;ii<N;ii++){
+        for(int jj=0;jj<M;jj++){
+            if(V[ii][jj]!=0){
+                int min = 2000;
+                for(int kk=0;kk<count;kk++){
+                    d1 = h[2*kk] - ii;
+                    d2 = h[2*kk + 1] - jj;
+                    if(d1<0)d1=-d1;
+                    if(d2<0)d2=-d2;
+                    d = d1+d2;
+                    if(d<min)min=d;
+                }
+                V[ii][jj] = min;
+            }
+        }
+    }
+    for(int ii=0;ii<N;ii++){
+        for(int jj=0;jj<M;jj++){
+            cout<<V[ii][jj]<<" ";
+        }
+        cout<<endl;
+    }
+    /* Enter your code here. Read input from STDIN. Print output to STDOUT */   
+    return 0;
+}
